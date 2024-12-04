@@ -16,7 +16,7 @@ namespace DAL
             using (Database context = new Database())
             {
                 // returnerer null hvis ikke fundet
-                return RegistreringssystemMapper.Map(context.Afdelinger.Find(id));
+               return RegistreringssystemMapper.Map(context.Afdelinger.Where(a => a.AfdelingID == id).First());
             }
         }
 
@@ -112,9 +112,9 @@ namespace DAL
             {
                 // returnerer null hvis ikke fundet
                 List<Sag> list = new List<Sag>();
-                foreach (Sag s in context.Sager)
+                foreach (Sag s in context.Sager.ToList())
                 {
-                    if (s.Afdeling.AfdelingID == id) 
+                    if (s.Afdeling != null && s.AfdelingID == id) 
                     {
                         list.Add(s);
                     }

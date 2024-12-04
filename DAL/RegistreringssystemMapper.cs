@@ -30,7 +30,7 @@ namespace DAL
                 using (Database context = new Database())
                 {
                     // returnerer null hvis ikke fundet
-                    return context.Afdelinger.Find(afdeling.Nummer);
+                    return context.Afdelinger.Where(a => a.AfdelingID == afdeling.Nummer).First();
                 }
             }
             else
@@ -131,7 +131,7 @@ namespace DAL
         {
             if (sag != null)
             {
-                return new Sag(sag.SagsNummer, sag.Overskrift, sag.Beskrivelse, Map(sag.Afdeling), Map(sag.Tidsregistreringer));
+                return new Sag(sag.Overskrift, sag.Beskrivelse, Map(sag.Afdeling), Map(sag.Tidsregistreringer));
             }
             else
                 return null;

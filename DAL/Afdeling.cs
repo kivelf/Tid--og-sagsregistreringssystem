@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace DAL
 {
     internal class Afdeling
     {
+        [Key]
         public int AfdelingID { get; set; }
         public string Navn {  get; set; }
         
@@ -28,7 +30,7 @@ namespace DAL
 
         public override string ToString() 
         { 
-            return Navn;
+            return $"{AfdelingID}) {Navn}";
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace DAL
 {
     internal class Tidsregistrering
     {
+        [Key]
         public int TidsregistreringID { get; set; }
         public DateTime StartTid { get; set; }
         public DateTime SlutTid { get; set; }

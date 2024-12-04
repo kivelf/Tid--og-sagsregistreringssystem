@@ -22,8 +22,8 @@ namespace DTO
         }
 
         public override string ToString() 
-        { 
-            return Navn;
+        {
+            return $"{Nummer}) {Navn}";
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,19 +47,61 @@ namespace Tid__og_sagsregistreringssystem
 
         private void ComboBoxAlleAfdelinger_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Afdeling selectedAfdeling = (Afdeling)ComboBoxAlleAfdelinger.SelectedItem;
-            if (afdelingBLL.GetAfdeling(selectedAfdeling.Nummer) != null)
+            string selectedAfdeling = ComboBoxAlleAfdelinger.SelectedItem.ToString();
+            if (afdelingBLL.GetAfdeling(Int32.Parse(selectedAfdeling.Substring(0,1))) != null)
             {
                 // update Sager and Medarbejdere to show the ones for the selected Afdeling
                 ListBoxAlleSager.Items.Clear();
-                sagBLL.GetAlleSager(selectedAfdeling.Nummer).ForEach(sag => ListBoxAlleSager.Items.Add(sag));
+                sagBLL.GetAlleSager(Int32.Parse(selectedAfdeling.Substring(0, 1))).ForEach(sag => ListBoxAlleSager.Items.Add(sag));
             }
 
         }
 
         private void ButtonAddSag_Click(object sender, RoutedEventArgs e)
         {
+            // validering af data i felter
+            if (ComboBoxAlleAfdelinger.SelectedItem == null) 
+            {
+                MessageBox.Show("Vælg en afdeling!", "Data mangler", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (TextBoxSagsnummer.Text != null)
+            {
+                try
+                {
+                    Convert.ToInt32(TextBoxSagsnummer.Text);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                    MessageBox.Show("Skriv et dyldigt sagsnummer!", "Inkorrekt data", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+            } else 
+            {
+                MessageBox.Show("Sagsnummer mangler!", "Data mangler", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (TextBoxSagOverskrift.Text.Length == 0 || TextBoxSagBeskrivelse.Text.Length == 0) 
+            {
+                MessageBox.Show("En sag skal have en overskrift og beskrivelse!", "Data mangler", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
+            int afdID = Int32.Parse(ComboBoxAlleAfdelinger.SelectedItem.ToString().Substring(0,1));
+            Afdeling afd = new Afdeling(ComboBoxAlleAfdelinger.SelectedItem.ToString(), afdID);
+
+            /* Debug.WriteLine(afd.Navn);
+            Debug.WriteLine(afd.Nummer); */
+
+            // opret ny sag
+             sagBLL.AddSag(new Sag(Int32.Parse(TextBoxSagsnummer.Text), TextBoxSagOverskrift.Text, 
+                TextBoxSagBeskrivelse.Text, afd, new List<Tidsregistrering>()));
+
+            /* sagBLL.AddSag(new Sag(555, "gggggg",
+                "hhhhhh", afd, new List<Tidsregistrering>())); */
         }
+
+
     }
 }
