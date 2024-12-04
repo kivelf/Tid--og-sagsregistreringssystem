@@ -5,6 +5,14 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tid- og sagsregistreringssystem", "Tid- og sagsregistreringssystem\Tid- og sagsregistreringssystem.csproj", "{E4BD08CD-A4D9-4C29-AF86-05199C92A0A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{6B64FDC7-CDC5-45AE-9737-C3C67737C3E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO", "DTO\DTO.csproj", "{60ED5EA8-EFC2-432D-8FDE-1A7843752F09}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{6B35DB68-BFB6-4F91-87F8-5AEEDFC958A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp Tid- og sagsregistreringssystem", "WebApp Tid- og sagsregistreringssystem\WebApp Tid- og sagsregistreringssystem.csproj", "{765271AF-98A3-4187-8341-77F04368E19F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +23,22 @@ Global
 		{E4BD08CD-A4D9-4C29-AF86-05199C92A0A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4BD08CD-A4D9-4C29-AF86-05199C92A0A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4BD08CD-A4D9-4C29-AF86-05199C92A0A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B64FDC7-CDC5-45AE-9737-C3C67737C3E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B64FDC7-CDC5-45AE-9737-C3C67737C3E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B64FDC7-CDC5-45AE-9737-C3C67737C3E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B64FDC7-CDC5-45AE-9737-C3C67737C3E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60ED5EA8-EFC2-432D-8FDE-1A7843752F09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60ED5EA8-EFC2-432D-8FDE-1A7843752F09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60ED5EA8-EFC2-432D-8FDE-1A7843752F09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60ED5EA8-EFC2-432D-8FDE-1A7843752F09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B35DB68-BFB6-4F91-87F8-5AEEDFC958A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B35DB68-BFB6-4F91-87F8-5AEEDFC958A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B35DB68-BFB6-4F91-87F8-5AEEDFC958A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B35DB68-BFB6-4F91-87F8-5AEEDFC958A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{765271AF-98A3-4187-8341-77F04368E19F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{765271AF-98A3-4187-8341-77F04368E19F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{765271AF-98A3-4187-8341-77F04368E19F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{765271AF-98A3-4187-8341-77F04368E19F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
