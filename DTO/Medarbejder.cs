@@ -36,7 +36,7 @@ namespace DTO
 
         public override string ToString()
         {
-            return $"{Navn} ({Initialer})";
+            return $"{MedarbejderID}) {Navn} ({Initialer})";
         }
     }
 }

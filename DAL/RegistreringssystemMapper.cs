@@ -97,7 +97,6 @@ namespace DAL
                 dataMedarbejder.Navn = medarbejder.Navn;
                 dataMedarbejder.CprNr = medarbejder.CprNr;
                 dataMedarbejder.Initialer = medarbejder.Initialer;
-                dataMedarbejder.AfdelingID = medarbejder.AfdelingID;
             }
             else
                 dataMedarbejder = null;
@@ -110,7 +109,7 @@ namespace DAL
         {
             if (sag != null)
             {
-                return new DTO.Sag(sag.Overskrift, sag.Beskrivelse, sag.AfdelingID);
+                return new DTO.Sag(sag.SagID, sag.Overskrift, sag.Beskrivelse, sag.AfdelingID);
             }
             else
                 return null;
@@ -150,10 +149,8 @@ namespace DAL
         {
             if (sag != null)
             {
-                dataSag.SagID = sag.SagID;
                 dataSag.Overskrift = sag.Overskrift;
                 dataSag.Beskrivelse = sag.Beskrivelse;
-                dataSag.AfdelingID = sag.AfdelingID;
             }
             else
                 dataSag = null;

@@ -24,12 +24,8 @@ namespace DAL
         {
             using (Database context = new Database())
             {
-                // returnerer null hvis ikke fundet
                 List<Afdeling> list = new List<Afdeling>();
-                foreach (Afdeling a in context.Afdelinger.ToList()) 
-                { 
-                    list.Add(a);
-                }
+                list = context.Afdelinger.ToList();
 
                 return RegistreringssystemMapper.Map(list);
             }
@@ -44,6 +40,35 @@ namespace DAL
             {
                 // returnerer null hvis ikke fundet
                 return RegistreringssystemMapper.Map(context.Medarbejdere.Find(id));
+            }
+        }
+
+        public static List<DTO.Medarbejder> GetAlleMedarbejdere()
+        {
+            using (Database context = new Database())
+            {
+                List<Medarbejder> list = new List<Medarbejder>();
+                list = context.Medarbejdere.ToList();
+
+                return RegistreringssystemMapper.Map(list);
+            }
+        }
+
+        public static List<DTO.Medarbejder> GetAlleMedarbejdere(int id)
+        {
+            using (Database context = new Database())
+            {
+                // returnerer null hvis ikke fundet
+                List<Medarbejder> list = new List<Medarbejder>();
+                foreach (Medarbejder m in context.Medarbejdere.ToList())
+                {
+                    if (m.AfdelingID == id)
+                    {
+                        list.Add(m);
+                    }
+                }
+
+                return RegistreringssystemMapper.Map(list);
             }
         }
 

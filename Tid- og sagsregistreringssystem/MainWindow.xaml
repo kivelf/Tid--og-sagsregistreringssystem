@@ -11,15 +11,24 @@
         <ComboBox Name="ComboBoxAlleAfdelinger" IsEditable="False" HorizontalAlignment="Left" Margin="40,56,0,0" VerticalAlignment="Top" Width="230" SelectionChanged="ComboBoxAlleAfdelinger_SelectionChanged"/>
 
         <Label Content="Sager:" HorizontalAlignment="Left" Margin="40,88,0,0" VerticalAlignment="Top"/>
-        <ListBox Name="ListBoxAlleSager" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="40,110,515,185"/>
-        <Label Content="Sagsnummer:" HorizontalAlignment="Left" Margin="40,254,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="TextBoxSagsnummer" HorizontalAlignment="Left" Margin="125,258,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="145"/>
+        <ListBox Name="ListBoxAlleSager" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="40,110,515,154" SelectionChanged="ListBoxAlleSager_SelectionChanged"/>
         <Label Content="Overskrift:" HorizontalAlignment="Left" Margin="40,285,0,0" VerticalAlignment="Top"/>
         <TextBox Name="TextBoxSagOverskrift" HorizontalAlignment="Left" Margin="125,289,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="145"/>
         <Label Content="Beskrivelse:" HorizontalAlignment="Left" Margin="40,316,0,0" VerticalAlignment="Top"/>
         <TextBox Name="TextBoxSagBeskrivelse" HorizontalAlignment="Left" Margin="125,320,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="145"/>
         <Button Name="ButtonAddSag" Content=" Opret sag " HorizontalAlignment="Left" Margin="75,360,0,0" VerticalAlignment="Top" Click="ButtonAddSag_Click"/>
-        <Button Name="ButtonEditSag" Content=" Rediger sag " HorizontalAlignment="Left" Margin="180,360,0,0" VerticalAlignment="Top"/>
+        <Button Name="ButtonEditSag" Content=" Rediger sag " HorizontalAlignment="Left" Margin="180,360,0,0" VerticalAlignment="Top" Click="ButtonEditSag_Click"/>
+
+        <Label Content="Medarbejdere:" HorizontalAlignment="Left" Margin="340,30,0,0" VerticalAlignment="Top"/>
+        <ListBox Name="ListBoxAlleMedarbejdere" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="340,56,215,154" SelectionChanged="ListBoxAlleMedarbejdere_SelectionChanged"/>
+        <Label Content="Navn:" HorizontalAlignment="Left" Margin="340,285,0,0" VerticalAlignment="Top"/>
+        <TextBox Name="TextBoxMedarbejderNavn" HorizontalAlignment="Left" Margin="390,289,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="180"/>
+        <Label Content="Initialer:" HorizontalAlignment="Left" Margin="340,316,0,0" VerticalAlignment="Top"/>
+        <TextBox Name="TextBoxMedarbejderInitialer" HorizontalAlignment="Left" Margin="390,320,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="180"/>
+        <Label Content="Cpr-nr.:" HorizontalAlignment="Left" Margin="341,342,0,0" VerticalAlignment="Top"/>
+        <TextBox Name="TextBoxMedarbejderCprNr" HorizontalAlignment="Left" Margin="390,347,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="180"/>
+        <Button Name="ButtonAddMedarbejder" Content=" Opret medarbejder " HorizontalAlignment="Left" Margin="341,381,0,0" VerticalAlignment="Top" Click="ButtonAddMedarbejder_Click"/>
+        <Button Name="ButtonEditMedarbejder" Content=" Rediger medarbejder " HorizontalAlignment="Left" Margin="463,381,0,0" VerticalAlignment="Top" Click="ButtonEditMedarbejder_Click"/>
 
     </Grid>
 </Window>
