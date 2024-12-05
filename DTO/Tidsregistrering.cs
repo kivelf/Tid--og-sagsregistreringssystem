@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,34 +10,33 @@ namespace DTO
 {
     public class Tidsregistrering
     {
-        public int Id { get; set; }
+        [Key]
+        public int TidsregistreringID { get; set; }
         public DateTime StartTid { get; set; }
         public DateTime SlutTid { get; set; }
-        public Medarbejder Medarbejder { get; set; }
-        public Sag Sag { get; set; }
+        public int MedarbejderID { get; set; }
+        public int SagID { get; set; }
 
-        public Tidsregistrering(DateTime startTid, DateTime slutTid, Medarbejder medarbejder, Sag sag)
+        public Tidsregistrering(DateTime startTid, DateTime slutTid, int medarbejderID, int sagID)
         {
-            Id = medarbejder.MedarbejderID + sag.SagsNummer + new Random().Next(100);
             StartTid = startTid;
             SlutTid = slutTid;
-            Medarbejder = medarbejder;
-            Sag = sag;
+            MedarbejderID = medarbejderID;
+            SagID = sagID;
         }
 
-        public Tidsregistrering(int id,DateTime startTid, DateTime slutTid, Medarbejder medarbejder, Sag sag)
+        public Tidsregistrering(int id, DateTime startTid, DateTime slutTid, int medarbejderID, int sagID)
         {
-            Id = id;
+            TidsregistreringID = id;
             StartTid = startTid;
             SlutTid = slutTid;
-            Medarbejder = medarbejder;
-            Sag = sag;
+            MedarbejderID = medarbejderID;
+            SagID = sagID;
         }
 
         public override string ToString() 
         {
-            return $"[{Medarbejder.Navn} har arbejdet på sag {Sag.SagsNummer} " +
-                $"i {(SlutTid - StartTid).TotalHours}:{(SlutTid - StartTid).TotalMinutes % 60} timer";
+            return $"Registreret arbejdstid: {(SlutTid - StartTid).TotalHours}:{(SlutTid - StartTid).TotalMinutes % 60} timer";
         }
     }
 }

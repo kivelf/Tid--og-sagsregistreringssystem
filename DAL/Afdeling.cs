@@ -14,8 +14,6 @@ namespace DAL
         public string Navn {  get; set; }
         
         public string Virksomhed { get; set; }
-        public virtual List<Medarbejder> Medarbejdere { get; set; } = new List<Medarbejder>();
-        public virtual List<Sag> Sager { get; set; } = new List<Sag>();
 
 
         // 'tom' Constructor for EntityFramework

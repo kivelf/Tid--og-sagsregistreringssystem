@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,23 +15,31 @@ namespace DAL
         public string Navn { get; set; }
         public string Initialer { get; set; }
         public string CprNr { get; set; }
-        public virtual Afdeling Afdeling { get; set; }
+        public int AfdelingID { get; set; } // foreign key
 
         // 'tom' Constructor for EntityFramework
         public Medarbejder() { }
 
-        public Medarbejder(int medarbejderID, string navn, string initialer, string cprNr, Afdeling afdeling) 
-        { 
+        public Medarbejder(string navn, string initialer, string cprNr, int afdelingID)
+        {
+            Navn = navn;
+            Initialer = initialer;
+            CprNr = cprNr;
+            AfdelingID = afdelingID;
+        }
+
+        public Medarbejder(int medarbejderID, string navn, string initialer, string cprNr, int afdelingID)
+        {
             MedarbejderID = medarbejderID;
             Navn = navn;
             Initialer = initialer;
             CprNr = cprNr;
-            Afdeling = afdeling;
+            AfdelingID = afdelingID;
         }
 
         public override string ToString()
         {
-            return $"{Navn} ({Afdeling})";
+            return $"{Navn} ({Initialer})";
         }
     }
 }

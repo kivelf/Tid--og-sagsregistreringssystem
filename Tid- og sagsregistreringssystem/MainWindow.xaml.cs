@@ -65,23 +65,6 @@ namespace Tid__og_sagsregistreringssystem
                 MessageBox.Show("Vælg en afdeling!", "Data mangler", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if (TextBoxSagsnummer.Text != null)
-            {
-                try
-                {
-                    Convert.ToInt32(TextBoxSagsnummer.Text);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex);
-                    MessageBox.Show("Skriv et dyldigt sagsnummer!", "Inkorrekt data", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-            } else 
-            {
-                MessageBox.Show("Sagsnummer mangler!", "Data mangler", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
             if (TextBoxSagOverskrift.Text.Length == 0 || TextBoxSagBeskrivelse.Text.Length == 0) 
             {
                 MessageBox.Show("En sag skal have en overskrift og beskrivelse!", "Data mangler", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -89,19 +72,10 @@ namespace Tid__og_sagsregistreringssystem
             }
 
             int afdID = Int32.Parse(ComboBoxAlleAfdelinger.SelectedItem.ToString().Substring(0,1));
-            Afdeling afd = new Afdeling(ComboBoxAlleAfdelinger.SelectedItem.ToString(), afdID);
-
-            /* Debug.WriteLine(afd.Navn);
-            Debug.WriteLine(afd.Nummer); */
 
             // opret ny sag
-             sagBLL.AddSag(new Sag(Int32.Parse(TextBoxSagsnummer.Text), TextBoxSagOverskrift.Text, 
-                TextBoxSagBeskrivelse.Text, afd, new List<Tidsregistrering>()));
-
-            /* sagBLL.AddSag(new Sag(555, "gggggg",
-                "hhhhhh", afd, new List<Tidsregistrering>())); */
+             sagBLL.AddSag(new Sag(TextBoxSagOverskrift.Text, TextBoxSagBeskrivelse.Text, afdID));
         }
-
 
     }
 }

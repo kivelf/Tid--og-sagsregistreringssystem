@@ -30,7 +30,7 @@ namespace DAL
                 using (Database context = new Database())
                 {
                     // returnerer null hvis ikke fundet
-                    return context.Afdelinger.Where(a => a.AfdelingID == afdeling.Nummer).First();
+                    return context.Afdelinger.Where(a => a.AfdelingID == afdeling.AfdelingID).First();
                 }
             }
             else
@@ -47,17 +47,6 @@ namespace DAL
             return retur;
         }
 
-        internal static void Update(DTO.Afdeling afdeling, Afdeling dataAfdeling) 
-        {
-            if (afdeling != null) 
-            { 
-                dataAfdeling.Medarbejdere = RegistreringssystemMapper.Map(afdeling.Medarbejdere);
-                dataAfdeling.Sager = Map(afdeling.Sager);
-            }
-            else
-                dataAfdeling = null;
-        }
-
 
         //---------------------------------------
         // Medarbejder mappers
@@ -65,7 +54,7 @@ namespace DAL
         {
             if (medarbejder != null) 
             {
-                return new DTO.Medarbejder(medarbejder.MedarbejderID, medarbejder.Navn, medarbejder.Initialer, medarbejder.CprNr, RegistreringssystemMapper.Map(medarbejder.Afdeling));
+                return new DTO.Medarbejder(medarbejder.MedarbejderID, medarbejder.Navn, medarbejder.Initialer, medarbejder.CprNr, medarbejder.AfdelingID);
             }
             else
                 return null;
@@ -75,7 +64,7 @@ namespace DAL
         {
             if (medarbejder != null) 
             {
-                return new Medarbejder(medarbejder.MedarbejderID, medarbejder.Navn, medarbejder.Initialer, medarbejder.CprNr, Map(medarbejder.Afdeling));
+                return new Medarbejder(medarbejder.MedarbejderID, medarbejder.Navn, medarbejder.Initialer, medarbejder.CprNr, medarbejder.AfdelingID);
             }
             else 
                 return null;
@@ -108,7 +97,7 @@ namespace DAL
                 dataMedarbejder.Navn = medarbejder.Navn;
                 dataMedarbejder.CprNr = medarbejder.CprNr;
                 dataMedarbejder.Initialer = medarbejder.Initialer;
-                dataMedarbejder.Afdeling = Map(medarbejder.Afdeling);
+                dataMedarbejder.AfdelingID = medarbejder.AfdelingID;
             }
             else
                 dataMedarbejder = null;
@@ -121,7 +110,7 @@ namespace DAL
         {
             if (sag != null)
             {
-                return new DTO.Sag(sag.SagID, sag.Overskrift, sag.Beskrivelse, Map(sag.Afdeling), Map(sag.Tidsregistreringer));
+                return new DTO.Sag(sag.Overskrift, sag.Beskrivelse, sag.AfdelingID);
             }
             else
                 return null;
@@ -131,7 +120,7 @@ namespace DAL
         {
             if (sag != null)
             {
-                return new Sag(sag.Overskrift, sag.Beskrivelse, Map(sag.Afdeling), Map(sag.Tidsregistreringer));
+                return new Sag(sag.Overskrift, sag.Beskrivelse, sag.AfdelingID);
             }
             else
                 return null;
@@ -161,11 +150,10 @@ namespace DAL
         {
             if (sag != null)
             {
-                dataSag.SagID = sag.SagsNummer;
+                dataSag.SagID = sag.SagID;
                 dataSag.Overskrift = sag.Overskrift;
                 dataSag.Beskrivelse = sag.Beskrivelse;
-                dataSag.Afdeling = Map(sag.Afdeling);
-                dataSag.Tidsregistreringer = Map(sag.Tidsregistreringer);
+                dataSag.AfdelingID = sag.AfdelingID;
             }
             else
                 dataSag = null;
@@ -178,9 +166,8 @@ namespace DAL
         {
             if (tidsregistrering != null)
             {
-                return new DTO.Tidsregistrering(tidsregistrering.TidsregistreringID, tidsregistrering.StartTid, tidsregistrering.SlutTid, 
-                    RegistreringssystemRepository.GetMedarbejder(tidsregistrering.Medarbejder.MedarbejderID), 
-                    RegistreringssystemRepository.GetSag(tidsregistrering.Sag.SagID));
+                return new DTO.Tidsregistrering(tidsregistrering.StartTid, tidsregistrering.SlutTid, 
+                    tidsregistrering.MedarbejderID, tidsregistrering.SagID);
             }
             else
                 return null;
@@ -190,9 +177,8 @@ namespace DAL
         {
             if (tidsregistrering != null)
             {
-                return new Tidsregistrering(tidsregistrering.Id, tidsregistrering.StartTid, tidsregistrering.SlutTid,
-                    Map(RegistreringssystemRepository.GetMedarbejder(tidsregistrering.Medarbejder.MedarbejderID)), 
-                    Map(RegistreringssystemRepository.GetSag(tidsregistrering.Sag.SagsNummer)));
+                return new Tidsregistrering(tidsregistrering.StartTid, tidsregistrering.SlutTid,
+                    tidsregistrering.MedarbejderID, tidsregistrering.SagID);
             }
             else
                 return null;

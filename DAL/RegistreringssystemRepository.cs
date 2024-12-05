@@ -26,23 +26,12 @@ namespace DAL
             {
                 // returnerer null hvis ikke fundet
                 List<Afdeling> list = new List<Afdeling>();
-                foreach (Afdeling a in context.Afdelinger) 
+                foreach (Afdeling a in context.Afdelinger.ToList()) 
                 { 
                     list.Add(a);
                 }
 
                 return RegistreringssystemMapper.Map(list);
-            }
-        }
-
-        public static void EditAfdeling(DTO.Afdeling afdeling) 
-        {
-            using (Database context = new Database()) 
-            {
-                Afdeling dataAfdeling = context.Afdelinger.Find(afdeling.Nummer);
-                RegistreringssystemMapper.Update(afdeling, dataAfdeling);
-
-                context.SaveChanges();
             }
         }
 
@@ -95,12 +84,8 @@ namespace DAL
         {
             using (Database context = new Database())
             {
-                // returnerer null hvis ikke fundet
                 List<Sag> list = new List<Sag>();
-                foreach (Sag s in context.Sager)
-                {
-                    list.Add(s);
-                }
+                list = context.Sager.ToList();
 
                 return RegistreringssystemMapper.Map(list);
             }
@@ -114,7 +99,7 @@ namespace DAL
                 List<Sag> list = new List<Sag>();
                 foreach (Sag s in context.Sager.ToList())
                 {
-                    if (s.Afdeling != null && s.AfdelingID == id) 
+                    if (s.AfdelingID == id) 
                     {
                         list.Add(s);
                     }
@@ -138,7 +123,7 @@ namespace DAL
         {
             using (Database context = new Database())
             {
-                Sag dataSag = context.Sager.Find(sag.SagsNummer);
+                Sag dataSag = context.Sager.Find(sag.SagID);
                 RegistreringssystemMapper.Update(sag, dataSag);
 
                 context.SaveChanges();

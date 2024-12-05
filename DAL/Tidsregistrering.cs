@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,25 +14,32 @@ namespace DAL
         public int TidsregistreringID { get; set; }
         public DateTime StartTid { get; set; }
         public DateTime SlutTid { get; set; }
-        public virtual Medarbejder Medarbejder { get; set; }
-        public virtual Sag Sag { get; set; }
+        public int MedarbejderID { get; set; }
+        public int SagID { get; set; }
 
         // 'tom' Constructor for EntityFramework
         public Tidsregistrering() { }
-        
-        public Tidsregistrering(int id, DateTime startTid, DateTime slutTid, Medarbejder medarbejder, Sag sag)
+
+        public Tidsregistrering(DateTime startTid, DateTime slutTid, int medarbejderID, int sagID)
+        {
+            StartTid = startTid;
+            SlutTid = slutTid;
+            MedarbejderID = medarbejderID;
+            SagID = sagID;
+        }
+
+        public Tidsregistrering(int id, DateTime startTid, DateTime slutTid, int medarbejderID, int sagID)
         {
             TidsregistreringID = id;
             StartTid = startTid;
             SlutTid = slutTid;
-            Medarbejder = medarbejder;
-            Sag = sag;
+            MedarbejderID = medarbejderID;
+            SagID = sagID;
         }
 
-        public override string ToString() 
+        public override string ToString()
         {
-            return $"[{Medarbejder.Navn} har arbejdet på sag {Sag.SagID} " +
-                $"i {(SlutTid - StartTid).TotalHours}:{(SlutTid - StartTid).TotalMinutes % 60} timer";
+            return $"Registreret arbejdstid: {(SlutTid - StartTid).TotalHours}:{(SlutTid - StartTid).TotalMinutes % 60} timer";
         }
     }
 }

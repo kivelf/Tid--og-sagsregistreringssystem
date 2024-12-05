@@ -11,27 +11,29 @@ namespace DTO
     public class Sag
     {
         [Key]
-        public int SagsNummer { get; set; }
+        public int SagID { get; set; }
         public string Overskrift { get; set; }
         public string Beskrivelse { get; set; }
-        [ForeignKey("Afdeling")]
         public int AfdelingID { get; set; } // foreign key
-        public Afdeling Afdeling { get; set; }
-        public List<Tidsregistrering> Tidsregistreringer { get; set; } = new List<Tidsregistrering>();
 
-        public Sag(int sagsNummer, string overskrift, string beskrivelse, Afdeling afdeling, List<Tidsregistrering> tidsregistreringer)
+        public Sag(string overskrift, string beskrivelse, int afdelingID)
         {
-            SagsNummer = sagsNummer;
             Overskrift = overskrift;
             Beskrivelse = beskrivelse;
-            AfdelingID = afdeling.Nummer;
-            Afdeling = afdeling;
-            Tidsregistreringer = tidsregistreringer;
+            AfdelingID = afdelingID;
+        }
+
+        public Sag(int sagsNummer, string overskrift, string beskrivelse, int afdelingID)
+        {
+            SagID = sagsNummer;
+            Overskrift = overskrift;
+            Beskrivelse = beskrivelse;
+            AfdelingID = afdelingID;
         }
 
         public override string ToString()
         {
-            return $"Sag {SagsNummer}: {Overskrift}";
+            return $"Sag {SagID}: {Overskrift}";
         }
     }
 }

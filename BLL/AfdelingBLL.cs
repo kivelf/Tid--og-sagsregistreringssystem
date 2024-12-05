@@ -20,10 +20,5 @@ namespace BLL
         {
             return RegistreringssystemRepository.GetAlleAfdelinger();
         }
-
-        public void EditAfdeling(DTO.Afdeling afdeling) 
-        {
-            RegistreringssystemRepository.EditAfdeling(afdeling);
-        }
     }
 }

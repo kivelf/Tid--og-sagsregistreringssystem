@@ -15,20 +15,24 @@ namespace DAL
         public int SagID { get; set; }
         public string Overskrift { get; set; }
         public string Beskrivelse { get; set; }
-        [ForeignKey("Afdeling")]
         public int AfdelingID { get; set; } // foreign key
-        public virtual Afdeling Afdeling { get; set; }
 
-        public virtual List<Tidsregistrering> Tidsregistreringer { get; set; } = new List<Tidsregistrering>();
 
         // 'tom' Constructor for EntityFramework
         public Sag() { }
-        public Sag(string overskrift, string beskrivelse, Afdeling afdeling, List<Tidsregistrering> tidsregistreringer)
+        public Sag(string overskrift, string beskrivelse, int afdelingID)
         {
             Overskrift = overskrift;
             Beskrivelse = beskrivelse;
-            Afdeling = afdeling;
-            Tidsregistreringer = tidsregistreringer;
+            AfdelingID = afdelingID;
+        }
+
+        public Sag(int sagsNummer, string overskrift, string beskrivelse, int afdelingID)
+        {
+            SagID = sagsNummer;
+            Overskrift = overskrift;
+            Beskrivelse = beskrivelse;
+            AfdelingID = afdelingID;
         }
 
         public override string ToString()
