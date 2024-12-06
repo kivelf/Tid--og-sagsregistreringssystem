@@ -41,12 +41,15 @@ namespace DAL
             // tidsregistreringer
             // data for the past week for Jimmy
             context.Tidsregistreringer.Add(new Tidsregistrering(DateTime.Now, DateTime.Now.AddHours(15), 1, 7));
-            context.Tidsregistreringer.Add(new Tidsregistrering(DateTime.Now.AddDays(-3), DateTime.Now.AddDays(-3).AddHours(12), 1, 1));
+            context.Tidsregistreringer.Add(new Tidsregistrering(DateTime.Now.AddDays(-3), DateTime.Now.AddDays(-3).AddHours(12).AddMinutes(30), 1, 1));
             // data for the past month for Jimmy
             context.Tidsregistreringer.Add(new Tidsregistrering(DateTime.Now.AddDays(-15), DateTime.Now.AddDays(-15).AddHours(30), 1, 4));
-            context.Tidsregistreringer.Add(new Tidsregistrering(DateTime.Now.AddDays(-21), DateTime.Now.AddDays(-21).AddHours(20), 1, 1));
+            context.Tidsregistreringer.Add(new Tidsregistrering(DateTime.Now.AddDays(-21), DateTime.Now.AddDays(-21).AddHours(20).AddMinutes(30), 1, 1));
             // data from longer back for Jimmy
             context.Tidsregistreringer.Add(new Tidsregistrering(DateTime.Now.AddDays(-90), DateTime.Now.AddDays(-90).AddHours(50), 1, 1));
+            // data for the past week for Bob
+            context.Tidsregistreringer.Add(new Tidsregistrering(DateTime.Now, DateTime.Now.AddHours(25), 4, 5));
+            context.Tidsregistreringer.Add(new Tidsregistrering(DateTime.Now.AddDays(-5), DateTime.Now.AddDays(-5).AddHours(5).AddMinutes(30), 4, 2));
 
             context.SaveChanges();
             

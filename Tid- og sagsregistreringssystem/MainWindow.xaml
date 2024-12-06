@@ -33,9 +33,9 @@
         <Label Content="Tidsregistreringer:" HorizontalAlignment="Left" Margin="621,30,0,0" VerticalAlignment="Top"/>
         <ListBox Name="ListBoxAlleTidsregistreringer" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="621,56,34,154"/>
         <Label Content="Vis medarbejderens registreringer for:" HorizontalAlignment="Left" Margin="621,285,0,0" VerticalAlignment="Top"/>
-        <RadioButton x:Name="RadioButtonSidsteUge" Content="Den sidste uge" HorizontalAlignment="Left" Margin="621,312,0,0" VerticalAlignment="Top"/>
-        <RadioButton x:Name="RadioButtonSidsteMaaned" Content="Den sidste måned" HorizontalAlignment="Left" Margin="621,335,0,0" VerticalAlignment="Top"/>
-        <RadioButton x:Name="RadioButtonOveralt" Content="Overalt" HorizontalAlignment="Left" Margin="621,357,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="RadioButtonSidsteUge" Content="Den sidste uge" HorizontalAlignment="Left" Margin="621,312,0,0" VerticalAlignment="Top" Checked="RadioButtonSidsteUge_Checked"/>
+        <RadioButton x:Name="RadioButtonSidsteMaaned" Content="Den sidste måned" HorizontalAlignment="Left" Margin="621,335,0,0" VerticalAlignment="Top" Checked="RadioButtonSidsteMaaned_Checked"/>
+        <RadioButton x:Name="RadioButtonOveralt" Content="Overalt" HorizontalAlignment="Left" Margin="621,357,0,0" VerticalAlignment="Top" Checked="RadioButtonOveralt_Checked"/>
         <TextBox Name="TextBoxTidsregistreringerSum" HorizontalAlignment="Left" Margin="621,381,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="120"/>
         <Label Content="timer" HorizontalAlignment="Left" Margin="742,377,0,0" VerticalAlignment="Top"/>
 

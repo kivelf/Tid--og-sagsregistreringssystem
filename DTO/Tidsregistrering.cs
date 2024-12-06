@@ -36,7 +36,14 @@ namespace DTO
 
         public override string ToString() 
         {
-            return $"Registreret arbejdstid: {(SlutTid - StartTid).TotalHours}:{(SlutTid - StartTid).TotalMinutes % 60} timer";
+            // pænere formattering af minutterne
+            string mins = ((SlutTid - StartTid).TotalMinutes % 60).ToString();
+            if (mins.Equals("0")) 
+            {
+                mins += "0";
+            }
+
+            return $"Medarbejder: {MedarbejderID}, d.{StartTid.Day}/{StartTid.Month}/{StartTid.Year} -> {(int)(SlutTid - StartTid).TotalHours}:{mins} timer";
         }
     }
 }

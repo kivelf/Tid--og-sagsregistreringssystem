@@ -34,6 +34,7 @@ namespace Tid__og_sagsregistreringssystem
             UpdateListAfdelinger();
             UpdateListAlleSager();
             UpdateListAlleMedarbejdere();
+            UpdateListAlleTidsregistreringer();
         }
 
         private void UpdateListAfdelinger() 
@@ -52,6 +53,12 @@ namespace Tid__og_sagsregistreringssystem
         { 
             ListBoxAlleMedarbejdere.Items.Clear();
             medarbejderBLL.GetAlleMedarbejdere().ForEach(medarbejder => ListBoxAlleMedarbejdere.Items.Add(medarbejder));
+        }
+
+        private void UpdateListAlleTidsregistreringer()
+        {
+            ListBoxAlleTidsregistreringer.Items.Clear();
+            tidsregistreringBLL.GetAlleTidsregistreringer().ForEach(tidsregistrering => ListBoxAlleTidsregistreringer.Items.Add(tidsregistrering));
         }
 
         private void ComboBoxAlleAfdelinger_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -228,12 +235,69 @@ namespace Tid__og_sagsregistreringssystem
                 TextBoxMedarbejderNavn.Text = medarbejder.Navn;
                 TextBoxMedarbejderInitialer.Text = medarbejder.Initialer;
                 TextBoxMedarbejderCprNr.Text = medarbejder.CprNr;
+
+                // default view: vis alle tidsregistreringer på medarbejderen
+                ListBoxAlleTidsregistreringer.Items.Clear();
+                tidsregistreringBLL.GetAlleTidsregistreringer(medarbejderID).ForEach(tidsregistrering => ListBoxAlleTidsregistreringer.Items.Add(tidsregistrering));
+                RadioButtonOveralt.IsChecked = true;
+                TextBoxTidsregistreringerSum.Text = tidsregistreringBLL.GetTotalArbejdstid(medarbejderID).ToString();
             }
             else
             {
                 TextBoxMedarbejderNavn.Text = "";
                 TextBoxMedarbejderInitialer.Text = "";
                 TextBoxMedarbejderCprNr.Text = "";
+                UpdateListAlleTidsregistreringer();
+                RadioButtonOveralt.IsChecked = false;
+                RadioButtonSidsteMaaned.IsChecked = false;
+                RadioButtonSidsteUge.IsChecked = false;
+                TextBoxTidsregistreringerSum.Text = "";
+            }
+        }
+
+        private void RadioButtonOveralt_Checked(object sender, RoutedEventArgs e)
+        {
+            if (ListBoxAlleMedarbejdere.SelectedItem != null)
+            {
+                int medarbejderID = GetMedarbejderNr();
+                // vis alle tidsregistreringer på medarbejderen
+                ListBoxAlleTidsregistreringer.Items.Clear();
+                tidsregistreringBLL.GetAlleTidsregistreringer(medarbejderID).ForEach(tidsregistrering => ListBoxAlleTidsregistreringer.Items.Add(tidsregistrering));
+                TextBoxTidsregistreringerSum.Text = tidsregistreringBLL.GetTotalArbejdstid(medarbejderID).ToString();
+            }
+        }
+
+        private void RadioButtonSidsteMaaned_Checked(object sender, RoutedEventArgs e)
+        {
+            if (ListBoxAlleMedarbejdere.SelectedItem != null)
+            {
+                int medarbejderID = GetMedarbejderNr();
+                // vis tidsregistreringer på medarbejderen fra den sidste måned
+                ListBoxAlleTidsregistreringer.Items.Clear();
+                // filtrerer registreringerne
+                var filteredTidsregistreringer = tidsregistreringBLL.GetAlleTidsregistreringer(medarbejderID)
+                    .Where(t => t.StartTid >= DateTime.Now.AddDays(-30));
+
+                filteredTidsregistreringer.ToList().ForEach(tidsregistrering => ListBoxAlleTidsregistreringer.Items.Add(tidsregistrering));
+
+                TextBoxTidsregistreringerSum.Text = tidsregistreringBLL.GetArbejdstidSidsteMaaned(medarbejderID).ToString();
+            }
+        }
+
+        private void RadioButtonSidsteUge_Checked(object sender, RoutedEventArgs e)
+        {
+            if (ListBoxAlleMedarbejdere.SelectedItem != null)
+            {
+                int medarbejderID = GetMedarbejderNr();
+                // vis tidsregistreringer på medarbejderen fra den sidste uge
+                ListBoxAlleTidsregistreringer.Items.Clear();
+                // filtrerer registreringerne
+                var filteredTidsregistreringer = tidsregistreringBLL.GetAlleTidsregistreringer(medarbejderID)
+                    .Where(t => t.StartTid >= DateTime.Now.AddDays(-7));
+
+                filteredTidsregistreringer.ToList().ForEach(tidsregistrering => ListBoxAlleTidsregistreringer.Items.Add(tidsregistrering));
+
+                TextBoxTidsregistreringerSum.Text = tidsregistreringBLL.GetArbejdstidSidsteUge(medarbejderID).ToString();
             }
         }
     }

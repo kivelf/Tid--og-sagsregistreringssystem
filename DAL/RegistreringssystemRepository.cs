@@ -58,7 +58,6 @@ namespace DAL
         {
             using (Database context = new Database())
             {
-                // returnerer null hvis ikke fundet
                 List<Medarbejder> list = new List<Medarbejder>();
                 foreach (Medarbejder m in context.Medarbejdere.ToList())
                 {
@@ -120,7 +119,6 @@ namespace DAL
         {
             using (Database context = new Database())
             {
-                // returnerer null hvis ikke fundet
                 List<Sag> list = new List<Sag>();
                 foreach (Sag s in context.Sager.ToList())
                 {
@@ -167,6 +165,34 @@ namespace DAL
             }
         }
 
+        public static List<DTO.Tidsregistrering> GetAlleTidsregistreringer()
+        {
+            using (Database context = new Database())
+            {
+                List<Tidsregistrering> list = new List<Tidsregistrering>();
+                list = context.Tidsregistreringer.ToList();
+
+                return RegistreringssystemMapper.Map(list);
+            }
+        }
+
+        public static List<DTO.Tidsregistrering> GetAlleTidsregistreringer(int id)
+        {
+            using (Database context = new Database())
+            {
+                List<Tidsregistrering> list = new List<Tidsregistrering>();
+                foreach (Tidsregistrering t in context.Tidsregistreringer.ToList())
+                {
+                    if (t.MedarbejderID == id)
+                    {
+                        list.Add(t);
+                    }
+                }
+
+                return RegistreringssystemMapper.Map(list);
+            }
+        }
+
         public static void AddTidsregistrering(DTO.Tidsregistrering tidsregistrering)
         {
             using (Database context = new Database())
@@ -174,6 +200,61 @@ namespace DAL
                 context.Tidsregistreringer.Add(RegistreringssystemMapper.Map(tidsregistrering));
 
                 context.SaveChanges();
+            }
+        }
+
+        // beregn arbejdstid på medarbejder
+        // total
+        public static double GetTotalArbejdstid(int id) 
+        {
+            using (Database context = new Database()) 
+            {
+                double sum = 0;
+                foreach (Tidsregistrering t in context.Tidsregistreringer.ToList())
+                {
+                    if (t.MedarbejderID == id)
+                    {
+                        sum += (double)((t.SlutTid - t.StartTid).TotalHours);
+                    }
+                }
+
+                return sum;
+            }
+        }
+
+        // arbejdstid de sidste 30 dage
+        public static double GetArbejdstidSidsteMaaned(int id)
+        {
+            using (Database context = new Database())
+            {
+                double sum = 0;
+                foreach (Tidsregistrering t in context.Tidsregistreringer.ToList())
+                {
+                    if (t.MedarbejderID == id && t.StartTid >= DateTime.Now.AddDays(-30))
+                    {
+                        sum += (double)((t.SlutTid - t.StartTid).TotalHours);
+                    }
+                }
+
+                return sum;
+            }
+        }
+
+        // arbejdstid den sidste uge
+        public static double GetArbejdstidSidsteUge(int id)
+        {
+            using (Database context = new Database())
+            {
+                double sum = 0;
+                foreach (Tidsregistrering t in context.Tidsregistreringer.ToList())
+                {
+                    if (t.MedarbejderID == id && t.StartTid >= DateTime.Now.AddDays(-7))
+                    {
+                        sum += (double)((t.SlutTid - t.StartTid).TotalHours);
+                    }
+                }
+
+                return sum;
             }
         }
     }
