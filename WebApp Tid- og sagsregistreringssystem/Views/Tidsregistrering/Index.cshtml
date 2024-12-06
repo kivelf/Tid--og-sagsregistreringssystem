@@ -1,17 +1,11 @@
-﻿@model DTO.Afdeling 
-
-@{
-    Layout = null;
-}
+﻿@model WebApp_Tid__og_sagsregistreringssystem.Controllers.TidsregistreringViewModel
 
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Heimdall Sikring - Portal for Tidsregistrering</title>
     <script>
-        // metode for at vise beskeder til brugeren
         function showMessage(message) {
             alert(message);
         }
@@ -34,33 +28,33 @@
 
     <div>
         <h2>Afdelinger:</h2>
-        <!-- Form for submitting the selected afdeling -->
-        <form method="post" action="/Tidsregistrering/Index">
-            @Html.DropDownList("selectedAfdelingID", (IEnumerable<SelectListItem>)ViewBag.Afdelinger, "Vælg en afdeling") <br /><br />
+        @using (Html.BeginForm("Index", "Tidsregistrering", FormMethod.Post))
+        {
+            @Html.DropDownListFor(m => m.SelectedAfdelingID, Model.Afdelinger, "Vælg en afdeling", new { @required = "required" }) <br /><br />
             <button type="submit">Vis alle sager og medarbejdere fra afdelingen</button>
-        </form>
+        }
     </div>
 
-    @if (ViewBag.Sager != null && ViewBag.Medarbejdere != null)
+    @if (Model.Sager != null && Model.Medarbejdere != null)
     {
         <div>
             <h2>Opret ny tidsregistrering:</h2>
-            <!-- Form for creating a new Tidsregistrering -->
-            <form method="post" action="/Tidsregistrering/OpretTidsregistrering">
-                <label for="selectedSagID">Vælg en sag:</label>
-                @Html.DropDownList("selectedSagID", new SelectList(ViewBag.Sager, "Value", "Text", ""), "Vælg en sag", new { required = "required" }) <br /><br />
+            @using (Html.BeginForm("OpretTidsregistrering", "Tidsregistrering", FormMethod.Post))
+            {
+                <label for="SelectedSagID">Vælg en sag:</label>
+                @Html.DropDownListFor(m => m.SelectedSagID, Model.Sager, "Vælg en sag", new { @required = "required" }) <br /><br />
 
-                <label for="selectedMedarbejderID">Vælg en medarbejder:</label>
-                @Html.DropDownList("selectedMedarbejderID", new SelectList(ViewBag.Medarbejdere, "Value", "Text", ""), "Vælg en medarbejder", new { required = "required" }) <br /><br />
+                <label for="SelectedMedarbejderID">Vælg en medarbejder:</label>
+                @Html.DropDownListFor(m => m.SelectedMedarbejderID, Model.Medarbejdere, "Vælg en medarbejder", new { @required = "required" }) <br /><br />
 
-                <label for="date">Dato:</label>
-                <input type="date" name="date" required /> <br /><br />
+                <label for="Date">Dato:</label>
+                @Html.TextBoxFor(m => m.Date, new { type = "date", @required = "required" }) <br /><br />
 
-                <label for="hours">Antal timer:</label>
-                <input type="number" name="hours" min="1" required /> <br /><br />
+                <label for="Hours">Antal timer:</label>
+                @Html.TextBoxFor(m => m.Hours, new { type = "number", min = "1", @required = "required" }) <br /><br />
 
                 <button type="submit">Opret tidsregistrering</button>
-            </form>
+            }
         </div>
     }
 </body>
