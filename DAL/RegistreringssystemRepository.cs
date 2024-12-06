@@ -59,13 +59,8 @@ namespace DAL
             using (Database context = new Database())
             {
                 List<Medarbejder> list = new List<Medarbejder>();
-                foreach (Medarbejder m in context.Medarbejdere.ToList())
-                {
-                    if (m.AfdelingID == id)
-                    {
-                        list.Add(m);
-                    }
-                }
+                // tager kun medarbejdere fra en bestemt afdeling
+                list = context.Medarbejdere.Where(m => m.AfdelingID == id).ToList();
 
                 return RegistreringssystemMapper.Map(list);
             }
@@ -120,13 +115,8 @@ namespace DAL
             using (Database context = new Database())
             {
                 List<Sag> list = new List<Sag>();
-                foreach (Sag s in context.Sager.ToList())
-                {
-                    if (s.AfdelingID == id) 
-                    {
-                        list.Add(s);
-                    }
-                }
+                // tager kun sager fra en bestemt afdeling
+                list = context.Sager.Where(s => s.AfdelingID == id).ToList();
 
                 return RegistreringssystemMapper.Map(list);
             }
@@ -181,13 +171,8 @@ namespace DAL
             using (Database context = new Database())
             {
                 List<Tidsregistrering> list = new List<Tidsregistrering>();
-                foreach (Tidsregistrering t in context.Tidsregistreringer.ToList())
-                {
-                    if (t.MedarbejderID == id)
-                    {
-                        list.Add(t);
-                    }
-                }
+                // tager kun tidsregistreringer på en bestemt medarbejder
+                list = context.Tidsregistreringer.Where(t => t.MedarbejderID == id).ToList();
 
                 return RegistreringssystemMapper.Map(list);
             }
@@ -209,16 +194,9 @@ namespace DAL
         {
             using (Database context = new Database()) 
             {
-                double sum = 0;
-                foreach (Tidsregistrering t in context.Tidsregistreringer.ToList())
-                {
-                    if (t.MedarbejderID == id)
-                    {
-                        sum += (double)((t.SlutTid - t.StartTid).TotalHours);
-                    }
-                }
-
-                return sum;
+                return context.Tidsregistreringer
+                    .Where(t => t.MedarbejderID == id)
+                    .ToList().Sum(t => (t.SlutTid - t.StartTid).TotalHours);
             }
         }
 
@@ -227,16 +205,11 @@ namespace DAL
         {
             using (Database context = new Database())
             {
-                double sum = 0;
-                foreach (Tidsregistrering t in context.Tidsregistreringer.ToList())
-                {
-                    if (t.MedarbejderID == id && t.StartTid >= DateTime.Now.AddDays(-30))
-                    {
-                        sum += (double)((t.SlutTid - t.StartTid).TotalHours);
-                    }
-                }
+                DateTime sidsteMaaned = DateTime.Now.AddDays(-30);
 
-                return sum;
+                return context.Tidsregistreringer
+                    .Where(t => t.MedarbejderID == id && t.StartTid >= sidsteMaaned)
+                    .ToList().Sum(t => (t.SlutTid - t.StartTid).TotalHours);
             }
         }
 
@@ -245,16 +218,11 @@ namespace DAL
         {
             using (Database context = new Database())
             {
-                double sum = 0;
-                foreach (Tidsregistrering t in context.Tidsregistreringer.ToList())
-                {
-                    if (t.MedarbejderID == id && t.StartTid >= DateTime.Now.AddDays(-7))
-                    {
-                        sum += (double)((t.SlutTid - t.StartTid).TotalHours);
-                    }
-                }
+                DateTime sidsteUge = DateTime.Now.AddDays(-7);
 
-                return sum;
+                return context.Tidsregistreringer
+                    .Where(t => t.MedarbejderID == id && t.StartTid >= sidsteUge)
+                    .ToList().Sum(t => (t.SlutTid - t.StartTid).TotalHours);
             }
         }
     }
