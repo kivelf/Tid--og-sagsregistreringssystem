@@ -1,0 +1,67 @@
+﻿@model DTO.Afdeling 
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Heimdall Sikring - Portal for Tidsregistrering</title>
+    <script>
+        // metode for at vise beskeder til brugeren
+        function showMessage(message) {
+            alert(message);
+        }
+    </script>
+</head>
+<body>
+    @if (TempData["Success"] != null)
+    {
+        <script>
+            showMessage("@TempData["Success"]");
+        </script>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <script>
+            showMessage("@TempData["Error"]");
+        </script>
+    }
+
+    <div>
+        <h2>Afdelinger:</h2>
+        <!-- Form for submitting the selected afdeling -->
+        <form method="post" action="/Tidsregistrering/Index">
+            @Html.DropDownList("selectedAfdelingID", (IEnumerable<SelectListItem>)ViewBag.Afdelinger, "Vælg en afdeling") <br /><br />
+            <button type="submit">Vis alle sager og medarbejdere fra afdelingen</button>
+        </form>
+    </div>
+
+    @if (ViewBag.Sager != null && ViewBag.Medarbejdere != null)
+    {
+        <div>
+            <h2>Opret ny tidsregistrering:</h2>
+            <!-- Form for creating a new Tidsregistrering -->
+            <form method="post" action="/Tidsregistrering/OpretTidsregistrering">
+                <label for="selectedSagID">Vælg en sag:</label>
+                @Html.DropDownList("selectedSagID", new SelectList(ViewBag.Sager, "Value", "Text", ""), "Vælg en sag", new { required = "required" }) <br /><br />
+
+                <label for="selectedMedarbejderID">Vælg en medarbejder:</label>
+                @Html.DropDownList("selectedMedarbejderID", new SelectList(ViewBag.Medarbejdere, "Value", "Text", ""), "Vælg en medarbejder", new { required = "required" }) <br /><br />
+
+                <label for="date">Dato:</label>
+                <input type="date" name="date" required /> <br /><br />
+
+                <label for="hours">Antal timer:</label>
+                <input type="number" name="hours" min="1" required /> <br /><br />
+
+                <button type="submit">Opret tidsregistrering</button>
+            </form>
+        </div>
+    }
+</body>
+</html>
