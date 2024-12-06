@@ -21,22 +21,6 @@ namespace DAL
                 return null;
         }
 
-        public static Afdeling Map(DTO.Afdeling afdeling) 
-        {
-            if (afdeling != null)
-            {
-                // vi opretter ikke nye afdelinger i GUI,
-                // derfor finder blot fra de eksisterende i DB'en
-                using (Database context = new Database())
-                {
-                    // returnerer null hvis ikke fundet
-                    return context.Afdelinger.Where(a => a.AfdelingID == afdeling.AfdelingID).First();
-                }
-            }
-            else
-                return null;
-        }
-
         public static List<DTO.Afdeling> Map(List<Afdeling> afdelinger)
         {
             List<DTO.Afdeling> retur = new List<DTO.Afdeling>();
@@ -74,16 +58,6 @@ namespace DAL
         { 
             List<DTO.Medarbejder> retur = new List<DTO.Medarbejder>();
             foreach (Medarbejder m in medarbejdere) 
-            {
-                retur.Add(RegistreringssystemMapper.Map(m));
-            }
-            return retur;
-        }
-
-        public static List<Medarbejder> Map(List<DTO.Medarbejder> medarbejdere) 
-        { 
-            List<Medarbejder> retur = new List<Medarbejder> ();
-            foreach (DTO.Medarbejder m in medarbejdere) 
             {
                 retur.Add(RegistreringssystemMapper.Map(m));
             }
@@ -135,16 +109,6 @@ namespace DAL
             return retur;
         }
 
-        public static List<Sag> Map(List<DTO.Sag> sager)
-        {
-            List<Sag> retur = new List<Sag>();
-            foreach (DTO.Sag s in sager)
-            {
-                retur.Add(RegistreringssystemMapper.Map(s));
-            }
-            return retur;
-        }
-
         internal static void Update(DTO.Sag sag, Sag dataSag)
         {
             if (sag != null)
@@ -185,16 +149,6 @@ namespace DAL
         {
             List<DTO.Tidsregistrering> retur = new List<DTO.Tidsregistrering>();
             foreach (Tidsregistrering t in tidsregistreringer)
-            {
-                retur.Add(RegistreringssystemMapper.Map(t));
-            }
-            return retur;
-        }
-
-        public static List<Tidsregistrering> Map(List<DTO.Tidsregistrering> tidsregistreringer)
-        {
-            List<Tidsregistrering> retur = new List<Tidsregistrering>();
-            foreach (DTO.Tidsregistrering t in tidsregistreringer)
             {
                 retur.Add(RegistreringssystemMapper.Map(t));
             }

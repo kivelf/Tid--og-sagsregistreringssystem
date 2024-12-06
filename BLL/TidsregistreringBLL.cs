@@ -9,12 +9,6 @@ namespace BLL
 {
     public class TidsregistreringBLL
     {
-        public DTO.Tidsregistrering GetTidsregistrering(int id)
-        {
-            if (id <= 0) throw new IndexOutOfRangeException();
-            return RegistreringssystemRepository.GetTidsregistrering(id);
-        }
-
         public List<DTO.Tidsregistrering> GetAlleTidsregistreringer()
         {
             return RegistreringssystemRepository.GetAlleTidsregistreringer();

@@ -36,10 +36,5 @@ namespace DAL
             CprNr = cprNr;
             AfdelingID = afdelingID;
         }
-
-        public override string ToString()
-        {
-            return $"{Navn} ({Initialer})";
-        }
     }
 }

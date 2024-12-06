@@ -146,15 +146,6 @@ namespace DAL
 
         //---------------------------------------
         // Tidsregistrering-relaterede
-        public static DTO.Tidsregistrering GetTidsregistrering(int id)
-        {
-            using (Database context = new Database())
-            {
-                // returnerer null hvis ikke fundet
-                return RegistreringssystemMapper.Map(context.Tidsregistreringer.Find(id));
-            }
-        }
-
         public static List<DTO.Tidsregistrering> GetAlleTidsregistreringer()
         {
             using (Database context = new Database())

@@ -25,10 +25,5 @@ namespace DAL
             AfdelingID = nummer;
             Virksomhed = "Heimdall Sikring";
         }
-
-        public override string ToString() 
-        { 
-            return $"{AfdelingID}) {Navn}";
-        }
     }
 }

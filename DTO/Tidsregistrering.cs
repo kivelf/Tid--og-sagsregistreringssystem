@@ -24,16 +24,7 @@ namespace DTO
             MedarbejderID = medarbejderID;
             SagID = sagID;
         }
-
-        public Tidsregistrering(int id, DateTime startTid, DateTime slutTid, int medarbejderID, int sagID)
-        {
-            TidsregistreringID = id;
-            StartTid = startTid;
-            SlutTid = slutTid;
-            MedarbejderID = medarbejderID;
-            SagID = sagID;
-        }
-
+        
         public override string ToString() 
         {
             // pænere formattering af minutterne

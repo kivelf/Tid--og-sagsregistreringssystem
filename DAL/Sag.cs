@@ -26,18 +26,5 @@ namespace DAL
             Beskrivelse = beskrivelse;
             AfdelingID = afdelingID;
         }
-
-        public Sag(int sagsNummer, string overskrift, string beskrivelse, int afdelingID)
-        {
-            SagID = sagsNummer;
-            Overskrift = overskrift;
-            Beskrivelse = beskrivelse;
-            AfdelingID = afdelingID;
-        }
-
-        public override string ToString()
-        {
-            return $"Sag {SagID}: {Overskrift}";
-        }
     }
 }
