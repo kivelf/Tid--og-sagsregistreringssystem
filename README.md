@@ -2,7 +2,8 @@
 ## Tid- og sagsregistreringssystem
 
 ![designklassediagram](https://github.com/user-attachments/assets/ce64cef8-86ab-4883-ae81-964fea6db3fa)
-*// Designklassediagram af min løsning*
+
+*Designklassediagram af min løsning*
 
 ## Opgavebeskrivelse
 Der skal konstrueres en 3-lags arkitektur med en MVC App og en WPF App samt en database til et system til registrering af arbejdstid i en virksomhed.
